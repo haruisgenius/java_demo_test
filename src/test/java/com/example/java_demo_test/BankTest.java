@@ -51,7 +51,9 @@ public class BankTest {
 		BankResponse response = bankService.deposit(newBank);
 		//確認金額有存進去
 		Bank resBank = response.getBank();
+		//斷言
 		Assert.isTrue(resBank.getAmount() == (oldBank.getAmount()+newBank.getAmount()), "存款錯誤");
+		Assert.isTrue(response.getMessage().equals("存款成功"), "存款失敗");
 		//刪除測試資料
 		bankDao.delete(resBank);
 	}
@@ -65,6 +67,7 @@ public class BankTest {
 		//確認提領金額
 		Bank resBank = response.getBank();
 		Assert.isTrue(resBank.getAmount() == (oldBank.getAmount() - newBank.getAmount()), "提款錯誤");
+		Assert.isTrue(response.getMessage().equals("提款成功"), "提款失敗");
 		//刪除測試資料
 		bankDao.delete(resBank);
 	}
